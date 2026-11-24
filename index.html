@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>名为主 Owner，实为交付与背责——时间线与证据索引</title>
+  <meta name="description" content="某大厂智能办公平台部研发工程师对直属领导 zhoulu03 及协作方的公开记录：名为主 Owner，实为交付与背责。每一条均有录音时间点或聊天截图对应，逐条可核。" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      line-height: 1.7;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+    
+    /* Header */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 16px 0;
+    }
+    .logo { font-weight: 800; font-size: 18px; letter-spacing: 0.5px; }
+    .logo span { color: #f43f5e; }
+    .nav-links { display: flex; gap: 24px; font-size: 14px; color: #94a3b8; }
+    .nav-links a:hover { color: #fff; }
+    
+    /* Hero */
+    .hero { padding: 80px 0 60px; }
+    .hero-tag {
+      display: inline-block;
+      background: rgba(244, 63, 94, 0.15);
+      color: #fda4af;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      border: 1px solid rgba(244, 63, 94, 0.3);
+    }
+    .hero h1 {
+      font-size: clamp(36px, 6vw, 52px);
+      line-height: 1.1;
+      margin-bottom: 20px;
+      font-weight: 800;
+    }
+    .hero h1 .highlight { color: #f43f5e; }
+    .hero p {
+      font-size: 18px;
+      color: #94a3b8;
+      max-width: 640px;
+      margin-bottom: 32px;
+    }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn {
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #f43f5e 0%, #ec4899 100%);
+      color: white;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(244, 63, 94, 0.35); }
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .btn-secondary:hover { background: rgba(255, 255, 255, 0.12); }
+    
+    /* Stats */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 48px;
+    }
+    .stat {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 24px;
+      border-radius: 16px;
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 36px;
+      font-weight: 800;
+      color: #f43f5e;
+      margin-bottom: 4px;
+    }
+    .stat-label { font-size: 13px; color: #94a3b8; }
+    
+    /* Section */
+    section { padding: 60px 0; }
+    .section-title {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+    .section-subtitle {
+      color: #94a3b8;
+      margin-bottom: 32px;
+      font-size: 15px;
+    }
+    
+    /* Card */
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 20px;
+    }
+    
+    /* People */
+    .people-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .person-card {
+      background: linear-gradient(135deg, rgba(244, 63, 94, 0.1) 0%, rgba(255, 255, 255, 0.03) 100%);
+      border: 1px solid rgba(244, 63, 94, 0.25);
+      border-radius: 16px;
+      padding: 28px;
+    }
+    .person-role {
+      font-size: 13px;
+      color: #fda4af;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .person-name {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+    .person-desc { color: #94a3b8; font-size: 14px; }
+    
+    /* Accusation */
+    .accusation {
+      background: rgba(244, 63, 94, 0.1);
+      border: 1px solid rgba(244, 63, 94, 0.3);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+    }
+    .accusation-label {
+      font-size: 12px;
+      color: #fda4af;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .accusation-text { font-weight: 500; }
+    
+    .clarification {
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .clarification-label {
+      font-size: 12px;
+      color: #86efac;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+    
+    .case-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: rgba(244, 63, 94, 0.2);
+      color: #f43f5e;
+      border-radius: 10px;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+    
+    .evidence-tag {
+      display: inline-block;
+      background: rgba(59, 130, 246, 0.2);
+      color: #93c5fd;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-right: 6px;
+      margin-bottom: 6px;
+    }
+    
+    .quote {
+      background: rgba(255, 255, 255, 0.06);
+      border-left: 4px solid #3b82f6;
+      padding: 18px 22px;
+      border-radius: 0 12px 12px 0;
+      margin: 16px 0;
+    }
+    
+    .manager-item {
+      border-left: 3px solid #f43f5e;
+      padding-left: 20px;
+      margin-bottom: 28px;
+    }
+    .manager-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    
+    .timeline { position: relative; padding-left: 36px; }
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 10px;
+      top: 6px;
+      bottom: 6px;
+      width: 2px;
+      background: rgba(255, 255, 255, 0.15);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 28px;
+    }
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -31px;
+      top: 4px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #0f172a;
+      border: 2px solid #f43f5e;
+    }
+    .timeline-date {
+      font-size: 13px;
+      color: #94a3b8;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .timeline-title {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .timeline-desc { color: #94a3b8; font-size: 14px; }
+    
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .tip {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 24px;
+      border-radius: 14px;
+    }
+    .tip-icon { font-size: 32px; margin-bottom: 12px; }
+    .tip-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .tip-desc { color: #94a3b8; font-size: 14px; }
+    
+    .contact-box {
+      background: linear-gradient(135deg, rgba(244, 63, 94, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+      border: 1px solid rgba(244, 63, 94, 0.35);
+      border-radius: 16px;
+      padding: 36px;
+      text-align: center;
+    }
+    .wechat {
+      font-size: 42px;
+      font-weight: 800;
+      color: #f43f5e;
+      margin-top: 16px;
+      letter-spacing: 2px;
+    }
+    
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: #64748b;
+      font-size: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      margin-top: 40px;
+    }
+    
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .stats { grid-template-columns: 1fr 1fr; }
+      .people-grid { grid-template-columns: 1fr; }
+      .tips-grid { grid-template-columns: 1fr; }
+      .wechat { font-size: 32px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav class="nav">
+        <div class="logo">置身<span>手内</span></div>
+        <div class="nav-links">
+          <a href="#overview">概览</a>
+          <a href="#timeline">时间线</a>
+          <a href="#issues">管理过程记录</a>
+          <a href="#partner">协作失真记录</a>
+          <a href="#demands">诉求</a>
+          <a href="#recording">录音</a>
+          <a href="#docs">文档</a>
+          <a href="#advice">建议</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="overview">
+      <div class="container">
+        <div class="hero-tag">事件公开 · 每一条逐项可核</div>
+        <h1>名为主 <span class="highlight">Owner</span><br/>实为交付与背责</h1>
+        <p>我是某大厂智能办公平台部的一名研发工程师，2026 年 7 月 20 日入职。入职前后，直属领导<strong>zhoulu03（张亮）</strong>在多次沟通中承诺我做「Agent 运行时主 Owner」；实际四个月里，方向、分工、资源与评价的决策权始终不在我手中，我只承担交付与责任；交付完成后，我被列入裁员名单。这里公开的是我的<strong>时间线与证据索引</strong>，以及协作方 <strong>chenshulin06</strong>、<strong>linchen07</strong> 协作失真的过程记录——以下每一条都有录音时间点或聊天截图对应，逐条可核。</p>
+        <div class="hero-actions">
+          <a href="#issues" class="btn btn-primary">查看管理过程记录</a>
+          <a href="#docs" class="btn btn-secondary">查看在线证据文档</a>
+        </div>
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-number">15</div>
+            <div class="stat-label">项管理过程记录</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">4</div>
+            <div class="stat-label">项协作失真记录</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">9</div>
+            <div class="stat-label">段关键录音索引</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">有录音或截图</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="who">
+      <div class="container">
+        <h2 class="section-title">本文指向的三个人</h2>
+        <p class="section-subtitle">一个从未建立管理机制，两个在协作与评价的链条上层层加码</p>
+        <div class="people-grid">
+          <div class="person-card">
+            <div class="person-role">投诉对象一</div>
+            <div class="person-name">zhoulu03（张亮）</div>
+            <p class="person-desc">我的直属领导（+1），部门管理者。入职时承诺「Agent 运行时主 Owner」，但未建立方向规划、优先级与资源协调机制，评价与去留依赖其直接协作方意见。</p>
+          </div>
+          <div class="person-card">
+            <div class="person-role">协作方一</div>
+            <div class="person-name">chenshulin06</div>
+            <p class="person-desc">与我同级无汇报关系的产品同学，掌握工作台需求。标签的发起与传递者：剪裁截图、私转方案、在我不在场的会上形成对我的评价。</p>
+          </div>
+          <div class="person-card" style="grid-column: 1 / -1;">
+            <div class="person-role">协作方二</div>
+            <div class="person-name">linchen07</div>
+            <p class="person-desc">某内部 AI 平台（下文简称 Oi）总产品负责人，此前是 zhoulu03 的 peer，平台后归入 zhoulu03 管下。平时直接给我派活、盯我交付；我的「主 Owner」之上有他的「总体 owner」，分工边界从未落成文字。</p>
+          </div>
+        </div>
+        <div class="card" style="margin-top: 20px; background: rgba(250, 204, 21, 0.1); border-color: rgba(250, 204, 21, 0.3);">
+          <strong style="color: #fde68a;">⚠️ 导读</strong>
+          <p style="margin-top: 10px; color: #fef3c7;">招我时，沟通中承诺我做「Agent 运行时主 Owner」；实际四个月里，方向、分工、资源与评价的决策权始终不在我手中，我只承担交付与责任；交付完成后，我被列入裁员名单。以下每一条都有录音时间点或聊天截图对应，逐条可核。文中我要求给的不是情绪回应，而是对职责、基线、信息、评价、去留依据的<strong>逐项书面答复</strong>。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="timeline">
+      <div class="container">
+        <h2 class="section-title">三个多月主要事件时间线</h2>
+        <p class="section-subtitle">每一步，都奔着「用完就扔」去（每项均可在录音或截图中核对）</p>
+        <div class="card">
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-date">7.20</div>
+              <div class="timeline-title">入职</div>
+              <div class="timeline-desc">前 10 天我梳理了 linchen 名下的 Oi 产品（他 6 月用约一周基于某开源框架用 AI 生成的二次框架）以及历史产品 ae。</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">8 月</div>
+              <div class="timeline-title">zhoulu03 通知我参与「三大场景落地」，做「技术 Owner」</div>
+              <div class="timeline-desc">7.29 已有一场专门讨论我模块 3 分工的 one one 并留有录音——「主 Owner」定位的由来。</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">8–9 月</div>
+              <div class="timeline-title">三线并行</div>
+              <div class="timeline-desc">学业务、澄清需求、开发场景的同时，并行收敛 Oi 历史基建问题、备战 9.10 部门内部比赛。</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">9.14 晚</div>
+              <div class="timeline-title">chenshulin06 转述通知</div>
+              <div class="timeline-desc">「lu 哥说的，让你整理一下 Oi 现在的问题，到时候你会上按条整理一下，拉上相关人员。」</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">9.15</div>
+              <div class="timeline-title">会上被当众质问</div>
+              <div class="timeline-desc">「干嘛整理这些成条的项」「是让我看什么」「你表达逻辑有问题」……（全程录音）</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">10.9</div>
+              <div class="timeline-title">同一天的两个口径</div>
+              <div class="timeline-desc">下午周会被 zhoulu03 当众问「落地怎么这么慢」；下午 one one 改口「模块 1 先不用太着急，重心放在模块 3」。</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">10.19</div>
+              <div class="timeline-title">从未下达的新目标与「预期 gap」</div>
+              <div class="timeline-desc">产品突然提出「年底大部分资产场景迁移到工作台」的新目标，并用「预期 gap」评价已有交付。</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">10 月末</div>
+              <div class="timeline-title">模块 1 三个资产场景如期提测、上线</div>
+              <div class="timeline-desc">交付完成。同一时期，项目专项奖金发放。</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">10.26 晚</div>
+              <div class="timeline-title">移交通知</div>
+              <div class="timeline-desc">我的 Oi 后续规划和技术方案被通知转给 linchen——我「不再涉及 Oi 任何事宜」，后续主 R 是 linchen 和 chenshulin06。</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">11.2</div>
+              <div class="timeline-title">部门合并</div>
+              <div class="timeline-desc">更名「智能办公平台部」。</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">11.5 前后</div>
+              <div class="timeline-title">「yy 留不留」</div>
+              <div class="timeline-desc">得知 zhoulu03 在其他会上向 linchen、chenshulin06 征询：我留不留？</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">11.9</div>
+              <div class="timeline-title">得知被裁</div>
+              <div class="timeline-desc">我已完成的项目移交给了 linchen，我此前的职责被闲置。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="issues" style="padding-top: 8px;">
+      <div class="container">
+        <h2 class="section-title">直属领导 zhoulu03 的管理过程记录</h2>
+        <p class="section-subtitle">第 2 章：每一项均有录音时间点或截图对应，逐条可核——请逐项书面答复</p>
+
+        <div class="card">
+          <div class="case-number">01</div>
+          <h3 style="font-size: 20px; margin-bottom: 16px; font-weight: 700;">当众问「落地怎么这么慢」，私下却说「不用着急」：同一天的两个口径</h3>
+          <div class="clarification">
+            <div class="clarification-label" style="font-size: 19px; font-weight: 700;">过程与证据</div>
+            <div style="color: #e2e8f0;">
+              <p style="margin-bottom: 12px;">10.9 上午周会，zhoulu03 当众评价我的模块 1 项目进度慢（10.9 研发周会录音）。当天下午的 one one，定调却变为（录音 [00:26:49]）：</p>
+              <div class="quote">「先不用那个太着急。」——"模块 1 的事情你先不用太着急，重心应在模块 3。"</div>
+              <p style="margin-bottom: 12px;">交付节奏此前有过对齐；需求反复、Oi 历史问题、人员带宽三个卡点，我也当面讲清过（[00:13:05]）。要认定我「慢」，请指出相对哪个约定、哪一项发生了什么延期——公开评价与私下安排不应是两套标准。</p>
+              <span class="evidence-tag">10.9 周会录音</span><span class="evidence-tag">10.9 one one 录音</span><span class="evidence-tag">会后解释截图</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="case-number">02</div>
+          <h3 style="font-size: 20px; margin-bottom: 16px; font-weight: 700;">请教协作模式，得到的回复是先反问、再重提旧事</h3>
+          <div class="clarification">
+            <div class="clarification-label" style="font-size: 19px; font-weight: 700;">过程与证据</div>
+            <div style="color: #e2e8f0;">
+              <p style="margin-bottom: 12px;">同样的 10.9 one one 里，我请教后续 OPC（一人全栈）模式该怎么协调、是否需要我承担。他先反问「那你怎么看待这个事呢」，接着提起「让产品出 PRD」的旧事，先入为主认定我「不愿意做全栈」。</p>
+              <div class="quote">「本身 Oi 是 chen 哥（linchen）那边发起的，所以他是总体的 owner。」（10.9 录音 [00:09:54–09:58]）</div>
+              <p style="margin-bottom: 12px;">需要说明的矛盾是：如果 OPC 是人人的通用要求，就不应单独对某一个「技术 owner」额外要求。我的「owner」身份之上另有「总体 owner」，决策权不在我手里；这一职责约定，也从未有过书面说明。</p>
+              <span class="evidence-tag">10.9 one one 录音</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="case-number">03</div>
+          <h3 style="font-size: 20px; margin-bottom: 16px; font-weight: 700;">若干负面标签的来源：无直接观察依据</h3>
+          <div class="clarification">
+            <div class="clarification-label" style="font-size: 19px; font-weight: 700;">过程与证据</div>
+            <div style="color: #e2e8f0;">
+              <p style="margin-bottom: 12px;"><strong>「研发方式传统、不够开放、协同差、表达能力有问题」</strong>——这些标签没有一条来自他本人的直接观察，均转述自 linchen、chenshulin06 等协作方。同样在 10.9 one one，我请教「后续该怎么把业务做好」，得到的回答是「你需要开放的心态」（录音 [00:23:10]）：回答未针对我提出的工作问题，而是先有结论，再「规劝」。</p>
+              <p style="margin-bottom: 12px;">真的，一旦被打上标签，连解释、提问、请教全都是错的。如果认为我不开放、不协同，请拿出具体的例子——我当时只是在业务请教上，希望和 linchen 的定位职责清晰一些。</p>
+              <span class="evidence-tag">10.9 one one 录音</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="case-number">04</div>
+          <h3 style="font-size: 20px; margin-bottom: 16px; font-weight: 700;">同样的「让产品出 PRD」，不同的对待</h3>
+          <div class="clarification">
+            <div class="clarification-label" style="font-size: 19px; font-weight: 700;">过程与证据</div>
+            <div style="color: #e2e8f0;">
+              <p style="margin-bottom: 12px;"><strong>背景：</strong>我刚入职，就要在一个半月内并行落地模块 1、模块 3；对接的产品说不清需求点、群里几个产品说法不一致（有截图）、产品告知业务方需求反复。我做的只是请产品负责同学 chenshulin06 把需求明确写清或说清再开发——两位产品同学当场认可，进度才得以推进，否则我刚来这个事情我该怎么做呢。</p>
+              <p style="margin-bottom: 12px;"><strong>就这么一件事</strong>，9/10 月期间 linchen 找我讲了不下 5 次「让产品出 PRD 不合理、影响效率」；10.9 我向 zhoulu03 请教后续协作与工作安排时，他的第一反应是我「为啥让产品出 PRD」。</p>
+              <p style="margin-bottom: 12px;"><strong>对照：</strong>另一位负责另一业务的后端同学，同样要求产品出 PRD、产品对该同学交付进度的评价还更慢——而 zhoulu03 在会上问他的却是「之前的问题解决了吗」，问我的却是「落地怎么这么慢」。同样的做法，得到的对待不同。请说明评价标准差异的依据。</p>
+              <p style="margin-bottom: 12px;"><strong>「AI 提效」话术：</strong>zhoulu03 和 linchen 都表达过「这些东西 AI 几个小时就能实现，不需要 PRD」。两个疑问：这些问题在我来之前存在了大几个月，为什么此前没有被解决？如果几个小时能做，为何未组织落地？没有 PRD、没有书面对齐，验收时就没人能自证「当初说好了什么」，预期全由事后定义——阻挠留痕，正是事后甩锅的铺垫。</p>
+              <span class="evidence-tag">群聊截图</span><span class="evidence-tag">10.9 one one 录音</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="case-number">05</div>
+          <h3 style="font-size: 20px; margin-bottom: 16px; font-weight: 700;">「研发人员的工资同级比产品高」：成本论与错位归因</h3>
+          <div class="clarification">
+            <div class="clarification-label" style="font-size: 19px; font-weight: 700;">过程与证据</div>
+            <div style="color: #e2e8f0;">
+              <div class="quote">「研发人员的工资同级比肯定比其他公司高……有 PRD 很大程度上是因为要精细规划、确保研发资源不要浪费。」（10.9 one one 录音 [00:07:02–07:17]）</div>
+              <p style="margin-bottom: 12px;">但同一时期，我面对的是需求反复叠加和变化、Oi 基建残缺（版本控制、发布、日志回溯全没有——一周 AI 搓出来的平台却要我基于它交付）、下游服务排期障碍——这三个卡点我当面讲过 [00:13:05]，来源均不在我，请结合原始录音核对责任归属。</p>
+              <span class="evidence-tag">10.9 one one 录音</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="case-number">06</div>
+          <h3 style="font-size: 20px; margin-bottom: 16px; font-weight: 700;">大几个月无人处理的历史问题，得到的回应是「你为什么不直接改了」</h3>
+          <div class="clarification">
+            <div class="clarification-label" style="font-size: 19px; font-weight: 700;">过程与证据</div>
+            <div style="color: #e2e8f0;">
+              <p style="margin-bottom: 12px;">10.9 one one 我反映的是：历史基建问题应作为独立专项处理、交付与修基建如何兼顾；这三大场景我修了不少，但后续线上稳定性让我担心。他的回答是（[00:13:45–00:13:48]）：</p>
+              <div class="quote">「那你为啥不直接改了这些问题呢」</div>
+              <p style="margin-bottom: 12px;">而在 8.26 one one 录音里，对同一工作的评价是：「你才来不到 2 个月吧，已经很超预期了。」此后，我反映团队缺少代码同步机制、修改会互相覆盖，他反问「为啥这么多团队都是友好协同」[00:15:38]；我提出与 linchen 一侧的协作卡点，他说「我会找个时间跟他聊一聊」[00:25:54]——此后没有下文。</p>
+              <span class="evidence-tag">10.9 one one 录音</span><span class="evidence-tag">8.26 one one 录音</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="case-number">07</div>
+          <h3 style="font-size: 20px; margin-bottom: 16px; font-weight: 700;">让我「按条整理问题」，开会时又当众批评整理方式</h3>
+          <div class="clarification">
+            <div class="clarification-label" style="font-size: 19px; font-weight: 700;">过程与证据</div>
+            <div style="color: #e2e8f0;">
+              <p style="margin-bottom: 12px;">9.14 晚，产品 chenshulin06 转述通知：「lu 哥说的，让你按条整理 Oi 问题、拉上相关人员。」我照办，组织了 9.15 的会（会邀截图显示相关 5 人参会）。会上 zhoulu03 当众质问：「为什么把这些问题整理成一条条的事项？」「整理这些是要让我看什么？」并评价我「表达逻辑有问题」（全程录音留档）。我在会上说明了任务来源。此后多个我不在场的会上，「表达能力不行」成为对我的固定评价。</p>
+              <p style="margin-bottom: 12px;">我的问题是：会前让我按条整理、会上骂我按条整理——是转述链出了错，还是他明知安排却故意为之？还是被人当了枪使。而他，不可能不知道全过程。</p>
+              <span class="evidence-tag">9.15 全程录音</span><span class="evidence-tag">会邀截图（5 人参会）</span><span class="evidence-tag">9.14 转述通知</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="case-number">08</div>
+          <h3 style="font-size: 20px; margin-bottom: 16px; font-weight: 700;">owner 头衔在身，owner 决策权不在：责任承担与荣誉归属的错位</h3>
+          <div class="clarification">
+            <div class="clarification-label" style="font-size: 19px; font-weight: 700;">过程与证据</div>
+            <div style="color: #e2e8f0;">
+              <p style="margin-bottom: 12px;">入职时说我是模块 3 的 owner；8 月又让我在 linchen 职责范围内承担交付与收敛，称「Oi 技术 owner」——但职责边界、决策权、人力、信息从未同步给我。10.9 one one 中我表示想厘清与 linchen 的分界，他的回答是：「你不要认为他让你做事你就是 linchen 那边的人了，现在大家都是一样的全栈。」既然人人全栈，我这个只用于承担交付背责的「技术 owner」头衔，其设立依据与权责定义，请予说明。</p>
+              <p style="margin-bottom: 12px;"><strong>另一个值得对照的事实：</strong>模块 1 的项目从需求到交付，研发架构设计与研发实施由我承担；后续该项目获得一笔项目专项奖金，在 10.22 季度会上以「主 R」身份获奖和领奖的是 chenshulin06（大家也都知道，她合作的项目主 R 长期由她署名）；她领奖后把鲜花献给了 linchen。责任承担与荣誉归属的分配过程，zhoulu03 从未做到公正。</p>
+              <span class="evidence-tag">7.29 one one 录音</span><span class="evidence-tag">10.9 one one 录音</span><span class="evidence-tag">10.22 季度会</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="case-number">09</div>
+          <h3 style="font-size: 20px; margin-bottom: 16px; font-weight: 700;">先按「保交付」共识执行，再以未下达的新目标评价「gap」</h3>
+          <div class="clarification">
+            <div class="clarification-label" style="font-size: 19px; font-weight: 700;">过程与证据</div>
+            <div style="color: #e2e8f0;">
+              <p style="margin-bottom: 12px;">10.19 上午 10:56，chenshulin06 突然告知：「xu 哥（zhoulu03 的 +1）给定的目标是年底模块 1 大部分场景要迁到工作台」——这个目标此前从未书面下达给我；10:58 她接着说「预期与现在实现有 gap」「规划的好些东西最后没达成效果」。我当时回问：gap 是谁提的、具体指哪些规划？她承认「规划是我自己的说法」，并表示「zhoulu 肯定也是知道的，因为当时优先保证了交付」。</p>
+              <p style="margin-bottom: 12px;">优先保交付是当时的共同取舍。现在交付完成，以一个从未下达的新目标评价原有交付——这不是复盘，应该把原交付基线、范围变更与验收标准放在一起做书面核对。</p>
+              <p style="margin-bottom: 12px; color: #93c5fd;">截图1：2026-10-19 10:56 chenshulin06 提出年底迁移目标（此前从未有书面下达）；截图2：2026-10-19 10:58 chenshulin06 提出「预期 gap」叙事，她自认规划系其个人说法、并确认 zhoulu03 知道当时优先保交付。</p>
+              <span class="evidence-tag">10.19 10:56 截图</span><span class="evidence-tag">10.19 10:58 截图</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="case-number">10</div>
+          <h3 style="font-size: 20px; margin-bottom: 16px; font-weight: 700;">我的核心工作被悄悄分走，全组我最后一个知道</h3>
+          <div class="clarification">
+            <div class="clarification-label" style="font-size: 19px; font-weight: 700;">过程与证据</div>
+            <div style="color: #e2e8f0;">
+              <p style="margin-bottom: 12px;">10.23 周会上 zhoulu03 随口提到：chen 哥那边的 hcb 也在做我的模块 3 的工作，你后续看看如何交流一下吧。在场研发听完都愣了，会后也有同学问我这拿我当啥呢——模块 3，是他 10.9 亲口定给我的「重心」，我的排期、汇报、考核全押在这项工作上。同一条汇报线两拨人做同一件事、互不通气，他一句解释都没有。</p>
+              <p style="margin-bottom: 12px;">这种沉默本身就是答案：我的「重心」是可以悄悄让渡的，我的位置是可以悄悄替换的，而我，永远是最后一个知道的人——请说明该安排的决策过程与时间。</p>
+              <span class="evidence-tag">10.23 周会录音</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="case-number">11</div>
+          <h3 style="font-size: 20px; margin-bottom: 16px; font-weight: 700;">会上以简称提问，事后记录为「表达能力有问题」</h3>
+          <div class="clarification">
+            <div class="clarification-label" style="font-size: 19px; font-weight: 700;">过程与证据</div>
+            <div style="color: #e2e8f0;">
+              <p style="margin-bottom: 12px;">10.23，同一个周会，zhoulu03 当众问我：shulin 说后续有个什么「撤回场景」，你知不知道？没有前因、没有背景说明，仅四个字。我如实回答不清楚，并解释了 19 日下午与 chenshulin06 开会讨论的后续规划。事后（10.23 16:04–16:24）我与 chenshulin06 逐条核实：所谓「撤回场景」，即「agent 任务可追溯可观测，自动完成后有问题支持撤回」——一项展开后才能理解的正常需求。</p>
+              <p style="margin-bottom: 12px;">随后，「说不明白这一简称」在他们产品周会（研发不在场）成为 zhoulu03 对我「表达能力有问题、场景没说明白」的例证。该需求的转述失真发生在传递环节，不在我这里；标签的形成场合我均不在场——这不是评价，是构陷的原料。</p>
+              <span class="evidence-tag">10.23 逐条核实记录</span><span class="evidence-tag">产品周会（本人不在场）</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="case-number">12</div>
+          <h3 style="font-size: 20px; margin-bottom: 16px; font-weight: 700;">「yy 留不留」：我的去留，被拿去征询与我存在争议的协作方</h3>
+          <div class="clarification">
+            <div class="clarification-label" style="font-size: 19px; font-weight: 700;">过程与证据</div>
+            <div style="color: #e2e8f0;">
+              <p style="margin-bottom: 12px;">11 月初，zhoulu03 向 linchen、chenshulin06 征询我的去留，原话「yy 留不留」。听取协作方意见可以有——但我与二者存在文中所列的具体争议，其意见如何采信、权重如何，请书面说明。你作为直属领导的独立判断呢？你该担的责任呢？</p>
+              <p style="margin-bottom: 12px;"><strong>时间对照：</strong>9.29 团建早餐，zhoulu03 当面对我说「我的模块 3 这件事是不变的，这个肯定是重要的」；节后，我此前负责的内容全部转由 linchen 负责（Oi 及资产的所有会议与讨论将我排除），并还吩咐 linchen 不再给我其他工作；11.5 前后，去留问题向上述协作方征询；11.9 裁员通知落到我头上。入职近四个月，我的 OKR 约一个月一大变。</p>
+              <p style="margin-bottom: 12px;"><strong>知情补充：</strong>linchen 曾亲自表示他在 10 月份回来后不想基于他的 Oi 再做 agent 运行时、认为 Oi 不必做得那么厚；随后 zhoulu03 便不再推进该方向。我不下定论，只追问：为什么招我时给的方向，最后由别人的一句话决定？为什么方向变化的后果，由我一个人承担？</p>
+              <span class="evidence-tag">9.29 团建当面承诺</span><span class="evidence-tag">linchen 第一手陈述（可对质）</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="case-number">13</div>
+          <h3 style="font-size: 20px; margin-bottom: 16px; font-weight: 700;">我问方向，他答：「想不清楚，那就等着被整合呗」</h3>
+          <div class="clarification">
+            <div class="clarification-label" style="font-size: 19px; font-weight: 700;">过程与证据</div>
+            <div style="color: #e2e8f0;">
+              <p style="margin-bottom: 12px;">我的 OKR 和工作方向全程由自己设定——没有规划指导、没有优先级、没有资源协调。9.15 会上我提出对后续规划的疑问，chenshulin06、linchen 在此前也均表示不清楚，zhoulu03 当场原话回应我（9.15 全程录音）：</p>
+              <div class="quote">「如果想不清楚那就等着被整合呗。」</div>
+              <p style="margin-bottom: 12px;">作为部门管理者，能当众说出这样的话：明知我被三人拉扯，还把「想清楚方向」的责任全压给我，把「被整合」的威胁一并送给我。领导该给的是方向和兜底，而我被给的是谜语。</p>
+              <span class="evidence-tag">9.15 全程录音</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="case-number">14</div>
+          <h3 style="font-size: 20px; margin-bottom: 16px; font-weight: 700;">群里刚要奖金，第二天标签和造谣就同时「到账」</h3>
+          <div class="clarification">
+            <div class="clarification-label" style="font-size: 19px; font-weight: 700;">过程与证据</div>
+            <div style="color: #e2e8f0;">
+              <p style="margin-bottom: 12px;">11 月 10 日，HRBP 下午找我聊完诉求后，我建了一个群，群内只有 HRBP 和 zhoulu03。我的原则很简单：是我的我会算清——出苦力的是我，拿好处的是别人。我在群里说明了内部比赛落地奖金和 All Hands 奖金的分配问题：这两项成果的研发实质是我承担的，我要求拿到我该得的部分。</p>
+              <p style="margin-bottom: 12px;">我主张发出去的第二天，我就「收获」了结果。11 月 11 日，chenshulin06 又在背后对我玩起同一套——标签效应、刻板印象、投射效应：有人转述，她评价我「做事非常猛、疯狂不近人情」。（转述人对话截图已留存为证；为保护当事人暂不公开，如进入诉讼环节将当庭提供。）</p>
+              <p style="margin-bottom: 12px;">与此同时我还得知，zhoulu03 在向他人造谣，称我说的这些事「是 linchen 告诉我的」。这个谣言反倒心虚地自曝了：他此前确实和「嫡系」在背后给我打上了莫须有的标签——正因为这些话真实存在、又怕经人传到我这里，他才会第一时间把消息来源栽给身边的人。</p>
+              <p style="margin-bottom: 12px;">在群里给我应得的奖金分配，是沟通；而给我贴标签、栽赃消息来源，是什么呢？</p>
+              <span class="evidence-tag">转述人对话截图（留存）</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="case-number">15</div>
+          <h3 style="font-size: 20px; margin-bottom: 16px; font-weight: 700;">裁员标准与结果的可比性问题</h3>
+          <div class="clarification">
+            <div class="clarification-label" style="font-size: 19px; font-weight: 700;">过程与证据</div>
+            <div style="color: #e2e8f0;">
+              <p style="margin-bottom: 12px;">据我了解，这一标准在团队内广为人知（多人知情，非单一来源）：本轮裁员中，wangxu 对各管理层明确的首条标准是「不具备独当一面能力的」优先裁，其中对具备该能力的判断也包含了 AI 全栈能力。这一理由本身合理；相应地，该标准应逐人适用、可比核验。</p>
+              <p style="margin-bottom: 12px;">可 zhoulu03 手下能力不足的嫡系们，很多安全，原因大家都知道。xx 工作台开发全程，我甚至指导过一些产品的研发性工作（因为现在要求全栈）；到头来，裁的是有实质产出、被恶意打标签的人，留下的是与 zhoulu03 关系较近的人。</p>
+              <p style="margin-bottom: 12px;">据了解：26 年 5 月前的 wzd 也是试用期被裁，此前也已离开。我只是最新的一个。「关系亲疏影响去留」，这是我对本次裁员公平性的核心质疑。</p>
+              <p style="margin-bottom: 12px;">请说明：该标准如何逐人适用、被保留人员如何比照、结论如何形成。</p>
+              <span class="evidence-tag">多人知情</span>
+            </div>
+          </div>
+          <p style="margin-top: 16px;">zhoulu03 就是这样一个自以为是、管理无为、听信谗言热衷打标签、人前的「归国人才」，人后另一套的虚伪管理者。</p>
+        </div>
+      </div>
+    </section>
+    <section id="partner" style="padding-top: 8px;">
+      <div class="container">
+        <h2 class="section-title">协作失真与素材剪裁的记录</h2>
+        <p class="section-subtitle">协作过程中的信息失真、素材截取与信息不同步，均有截图对应</p>
+
+        <div class="card">
+          <div class="case-number">01</div>
+          <h3 style="font-size: 20px; margin-bottom: 16px; font-weight: 700;">剪裁：一句话的前半段</h3>
+          <div class="clarification">
+            <div class="clarification-label" style="font-size: 19px; font-weight: 700;">过程与证据</div>
+            <div style="color: #e2e8f0;">
+              <p style="margin-bottom: 12px;">10.9 17:51，我在群里的原话全文是：「如果是之前形态不变的话，这一期先不上，二期解决完历史的稳定性问题再上，预计 10 月末。」——「10 月末」从 chenshulin06 所带徒弟的转述起就带着「形态不变」的前提，而提出形态要改的正是 chenshulin06 本人，当天她提出了形态要改。</p>
+              <p style="margin-bottom: 12px;">10.15 其徒弟的会邀配文：「看看十一月前三个场景上线前，xx-bot 也可以 ready」，会上共同定下 11 月末前交付。10.23 周会前，其徒弟私聊我「我咋记得说十月底啊哥哥」，并出示从「形态不变」前提之后截取的截图作为「证据」——我书面纠错，指出该图止于产品调研与《xx 功能清单》之前；对方又以「更新周报」为由再次引用，我以 10.15 书面记录（11 月交付）回应，其随后写下「那我先写 11.10 号这个时间吧」，我确认 11.9 提测。排期应以完整过程为准，不以单方「我记得」为准。</p>
+              <span class="evidence-tag">10.9 17:51 原话同屏</span><span class="evidence-tag">10.15 14:42 会邀配文</span><span class="evidence-tag">10.23 私聊与书面纠错</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="case-number">02</div>
+          <h3 style="font-size: 20px; margin-bottom: 16px; font-weight: 700;">周会的「成果」，是当天要来的</h3>
+          <div class="clarification">
+            <div class="clarification-label" style="font-size: 19px; font-weight: 700;">过程与证据</div>
+            <div style="color: #e2e8f0;">
+              <p style="margin-bottom: 12px;">上述沟通后，产品侧直接找我索要「bot 研发形态和细节截图」，理由是「chenshulin06 需要这个在产品周会上汇报」。我的过程产出，未经与我对齐用途，即进入他人周会汇报。我从不反对产品使用研发素材——但先对齐用途、写清研发贡献，是协作里应做的事，而不是要研发的具体过程产物来在产品周会上汇报。</p>
+              <span class="evidence-tag">索要与对齐记录</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="case-number">03</div>
+          <h3 style="font-size: 20px; margin-bottom: 16px; font-weight: 700;">我讨说法，换来「你别又炸了」</h3>
+          <div class="clarification">
+            <div class="clarification-label" style="font-size: 19px; font-weight: 700;">过程与证据</div>
+            <div style="color: #e2e8f0;">
+              <p style="margin-bottom: 12px;">10.26 晚，我把对齐纪要和两份技术方案发进 bot 小群，随即得知：方案已被 chenshulin06 私下同步给 linchen，他们的对齐时间「正常呢，也就是上周周中」——方向在 10.21 左右已定，我这个「技术 owner」26 日才第一次听说。她对私转的解释：「毕竟他是 xx 的产品 owner，大家一定要是 one page 的哈。」这个「one page」是单向的：结论由她带出、方案由她转出，中转过程不包含我——直到我书面反问，源头信息在我这里全程缺位。</p>
+              <p style="margin-bottom: 12px;">我问「我汇报给他么」，答：「大哥，人家级别在那摆着呢~我是协同方。」同晚她还写下「GZT 的事儿 Q4 应该是 linchen 主力去推~我们就是业务落地方~」——口头归属调整第一次落成文字。19:14 她说「你别又炸了」；21:36 我说：「下次转发我方案之前，请先告知我一声，经我同意再发给别人。」对方对规则表态确认。</p>
+              <p style="margin-bottom: 12px;">级别回答不了职责问题，「别又炸了」否定不了任何事实。</p>
+              <span class="evidence-tag">10.26 私转承认截图</span><span class="evidence-tag">「级别在那摆着呢」截图</span><span class="evidence-tag">「你别又炸了」截图</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="case-number">04</div>
+          <h3 style="font-size: 20px; margin-bottom: 16px; font-weight: 700;">零次争执，却被定性「容易炸」</h3>
+          <div class="clarification">
+            <div class="clarification-label" style="font-size: 19px; font-weight: 700;">过程与证据</div>
+            <div style="color: #e2e8f0;">
+              <p style="margin-bottom: 12px;">11 月初，组内多名同学先后向我转述：chenshulin06 称不愿与我合作，理由是「情绪不稳定、容易炸」，并向他人传播这一说法，还称我与 linchen 之间有很深矛盾。事实：与其共事期间，我未发生过一次当面争执或情绪对抗；发出「你别又炸了」文字的，恰恰是她本人。</p>
+              <p style="margin-bottom: 12px;">对「情绪不稳定」这类定性，如无实例，请列出时间、事件、具体言行以便核对——拿不出实例的性格定性，不是评价，是伤害。这类评价也疑似谗言行为和 zhoulu03 的庇护等，影响了我的工作调整与去留。</p>
+              <p style="margin-bottom: 12px;">另：11.10，我听到被传播「我与 linchen 不和」的说法，与事实不符，以上述过程为证。</p>
+              <span class="evidence-tag">组内多名同学转述</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="summary" style="padding-top: 4px;">
+      <div class="container">
+        <h2 class="section-title">小结：owner 名实分离的三个月</h2>
+        <div class="card">
+          <p style="margin-bottom: 12px;">三个多月里，我并行做模块 1、2、3，同时不断解释需求、排期和协作边界。我的问题从来不是「这些工作我不想干」，而是：<strong>该做什么、由谁决定、给什么资源、用什么标准评价？</strong></p>
+          <p style="margin-bottom: 12px;">三个多月里的事实是：zhoulu03 未建立方向规划、优先级与资源协调机制，决策过程受其直接协作方意见影响较大；我的头衔是「主 owner / 技术 owner」，交付与追责由我承担，而分工、资源、信息与决策的实际决定权不在我手中。名实分离的结果：<strong>权力落在亲疏关系上，责任落在具体干活的人身上</strong>。这是管理空转的问题。</p>
+          <p style="margin-bottom: 12px;">本文只针对 zhoulu03 相关人员的具体言行，不泛化到整个部门。我摆出的都是可核对的事项：职责、基线、信息、评价、去留依据——请逐项书面答复。</p>
+          <p style="color: #fda4af; font-weight: 700;">对于【恶意招聘、恶意残害和诋毁、恶意裁员】的现象，请给个说法！</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="demands" style="padding-top: 4px;">
+      <div class="container">
+        <h2 class="section-title">我的诉求：把「可核对的事实」摆上桌面</h2>
+        <p class="section-subtitle">被裁已成事实，但我仍把这些诉求放在这里，也是给各位打工人的参照</p>
+        <div class="card">
+          <div class="manager-item">
+            <div class="manager-title">一、请对不实标签给出具体 case</div>
+            <p>对「传统、不开放、协同差、表达能力有问题、情绪不稳定」等评价，请给出具体 case；查实不实的，请澄清、更正——不要让认真做事的人承受不实标签。</p>
+          </div>
+          <div class="manager-item">
+            <div class="manager-title">二、请说明定位与移交的依据</div>
+            <p>说明招聘定位、实际 owner 职责、跨线安排、项目移交的理由，以及已完成工作的贡献与责任归属。</p>
+          </div>
+          <div class="manager-item">
+            <div class="manager-title">三、请就裁员作出书面说明</div>
+            <p>就拟裁员的安排、理由、相关人员意见的使用方式及补偿条件，作出书面说明。我保留依法维权的权利。</p>
+          </div>
+          <div class="manager-item">
+            <div class="manager-title">四、请核查裁员标准是否可比</div>
+            <p>核查本次去留是否采用统一、客观的标准，是否存在关系亲疏影响筛选结果的情况。</p>
+          </div>
+          <div class="manager-item">
+            <div class="manager-title">五、请保护合理发声的人</div>
+            <p>保护合理发声和提供信息的人员，别让反映问题的人受到二次伤害。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="recording" style="padding-top: 4px;">
+      <div class="container">
+        <h2 class="section-title">关于录音材料的说明</h2>
+        <div class="card" style="background: rgba(250, 204, 21, 0.1); border-color: rgba(250, 204, 21, 0.3);">
+          <strong style="color: #fde68a;">📢 重要说明</strong>
+          <p style="margin-top: 10px; color: #fef3c7;">本人留存有与 zhoulu03、chenshulin06 的全部 one one 录音和聊天记录索引。为什么会有录音：谁都想将心比心地工作，谁又想如此心累地工作——得知这位领导此前的一些口碑后，出于保护自己的心理，我对所有关键沟通做了录音与书面留痕，仅用于内部核查、劳动争议申诉与仲裁的核验。</p>
+        </div>
+        <div class="card">
+          <p style="margin-bottom: 12px;">关键录音索引如下：</p>
+          <div class="manager-item">
+            <div class="manager-title">7.1　10.9 与 zhoulu03 的 one one（含分段时间索引表）</div>
+          </div>
+          <div class="manager-item">
+            <div class="manager-title">7.2　7.29 与 zhoulu03 讨论模块 3 分工——「主 Owner」定位的由来</div>
+          </div>
+          <div class="manager-item">
+            <div class="manager-title">7.3　8.26　zhoulu03 评价我「超出预期」</div>
+          </div>
+          <div class="manager-item">
+            <div class="manager-title">7.4　9.15　Oi 问题整理会（被当众批评全程）</div>
+          </div>
+          <div class="manager-item">
+            <div class="manager-title">7.5　10.9　研发周会（当众追责「慢」）</div>
+          </div>
+          <div class="manager-item">
+            <div class="manager-title">7.6　10.9　one one（「先不用着急」、成本论、贴标签全过程）</div>
+          </div>
+          <div class="manager-item">
+            <div class="manager-title">7.7　10.29　试用期目标与 Oi 后续规划讨论</div>
+          </div>
+          <div class="manager-item">
+            <div class="manager-title">7.8　10.23　相关事件时间索引</div>
+          </div>
+          <div class="manager-item">
+            <div class="manager-title">7.9　10.26 晚聊天事件时间索引</div>
+          </div>
+          <p style="margin-top: 16px;">上述录音、聊天记录与文件证据，可应劳动仲裁、法院、监管机构要求完整提供。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="docs" style="padding-top: 4px;">
+      <div class="container">
+        <h2 class="section-title">完整在线文档</h2>
+        <p class="section-subtitle">本文为摘要，完整事件、时间线与证据索引见在线文档</p>
+        <div class="card">
+          <p style="margin-bottom: 16px;">📕 <strong>核心材料</strong>：<a href="https://my.feishu.cn/wiki/M9Y8wY2xxiD94ykLZKhcI2EKnyd" target="_blank" rel="noopener noreferrer" style="color: #f43f5e; font-weight: 600; text-decoration: underline; text-underline-offset: 4px;">《入职快手3个多月：名为主Owner，实为交付与背责——时间线与证据索引》</a>——本文的主要来源，含全部章节与证据表述。</p>
+          <p>📗 <strong>叙事复盘</strong>：<a href="https://my.feishu.cn/wiki/DfELwo0WeiDOuikuvJjcLazpndf" target="_blank" rel="noopener noreferrer" style="color: #f43f5e; font-weight: 600; text-decoration: underline; text-underline-offset: 4px;">《一个理想主义工程师的握手、放手与复盘》</a>——同一事件的完整叙事复盘版。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="advice" style="padding-top: 4px;">
+      <div class="container">
+        <h2 class="section-title">给打工人的建议</h2>
+        <p class="section-subtitle">在职场一定要保护好自己</p>
+        <div class="card">
+          <p style="margin-bottom: 8px;">最后，给所有打工人一句劝告：在职场一定要保护好自己。具体四条：</p>
+          <div class="tips-grid" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="tip">
+              <div class="tip-icon">📝</div>
+              <div class="tip-title">保留证据</div>
+              <div class="tip-desc">录音、聊天记录、书面留痕——关键时刻，它们是唯一能替你说话的东西。</div>
+            </div>
+            <div class="tip">
+              <div class="tip-icon">📄</div>
+              <div class="tip-title">把边界写在纸上</div>
+              <div class="tip-desc">不肯写下来的边界，就是准备在某个时刻被单方面使用的边界。</div>
+            </div>
+            <div class="tip">
+              <div class="tip-icon">✉️</div>
+              <div class="tip-title">让重要安排有书面来源</div>
+              <div class="tip-desc">口头转述的指令在你执行之后，所有权会自动消失，责任会自动降临。让对方发一条文字；他不发，你自己发。</div>
+            </div>
+            <div class="tip">
+              <div class="tip-icon">✂️</div>
+              <div class="tip-title">看住每句话的前半段</div>
+              <div class="tip-desc">发在群里的承诺，完整截图存档。剪裁是最温和的武器——对抗它的唯一办法，是让完整版永远有处可查。</div>
+            </div>
+          </div>
+          <p style="margin-top: 28px; font-weight: 700; color: #fda4af;">
+            ⚠️ 在此声明：文中提及的录音、截图与文档证据均可供劳动仲裁、法院、监管机构核验；涉及他人的截图在进入正式程序前不作公开。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <h2 class="section-title">获取完整证据材料</h2>
+        <p class="section-subtitle">本页面仅展示文字摘要内容。</p>
+        <div class="contact-box">
+          <h3 style="font-size: 22px; margin-bottom: 12px;">
+            完整事件与证据索引请看上述在线文档链接；<br>
+            录音、聊天记录与文件证据可应劳动仲裁、法院、监管机构或媒体要求完整提供；<br>
+            脱敏后的录音与自述视频，后续将一并公开。<br>
+            如需交流或提供线索，请通过本仓库 Issue 联系（请注明来意）。
+          </h3>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>反对职场霸凌，维护自身权益 | 本页面内容均有<strong>完整证据</strong>支撑</p>
+  </footer>
+</body>
+</html>
