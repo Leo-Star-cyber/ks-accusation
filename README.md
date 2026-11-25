@@ -10,10 +10,10 @@
 
 ## 部署到 GitHub Pages
 
-仓库：`YaoYang-Star/ks-accusation`。
+仓库：`leo-star-cyber/ks-accusation`。
 
 1. 仓库 Settings → Pages → Source 选择 `Deploy from a branch`，Branch 选择 `main` 与 `/ (root)`，保存。
-2. 几分钟后即可通过 `https://yaoyang-star.github.io/ks-accusation/` 访问。
+2. 几分钟后即可通过 `https://leo-star-cyber.github.io/ks-accusation/` 访问。
 
 （本地如需重新推送：`git push origin main`）
 
