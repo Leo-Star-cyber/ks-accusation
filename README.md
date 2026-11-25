@@ -1,7 +1,7 @@
 # 名为主Owner，实为交付与背责——时间线与证据索引（公开摘要页）
 
 这是一个用于公开发布事件的静态单页网站（纯 HTML，无任何依赖），核心内容来自在线文档
-[《入职快手3个多月：名为主Owner，实为交付与背责——时间线与证据索引》](https://my.feishu.cn/wiki/M9Y8wY2xxiD94ykLZKhcI2EKnyd)（核心材料）与
+[《入职某手3个多月：owner是假，锅是真》](https://my.feishu.cn/wiki/M9Y8wY2xxiD94ykLZKhcI2EKnyd)（核心材料）与
 [《置身手内》](https://my.feishu.cn/wiki/DfELwo0WeiDOuikuvJjcLazpndf)（叙事复盘版）。
 
 ## 本地预览
